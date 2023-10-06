@@ -1,0 +1,48 @@
+{% extends '@AcMarcheSport/layout.html.twig' %}
+
+{% block body -%}
+    <div class="card">
+        <div class="card-header">
+            <h3>{{ activity }}</h3>
+        </div>
+        <div class="card-body">
+
+            {% if is_granted('ROLE_SPORT_ADMIN') %}
+                <a href="{{ path('sport_admin_activity_edit', { 'id': activity.id }) }}" class="btn btn-primary"
+                   role="button"><i class="far fa-edit"></i> Editer</a>
+            {% endif %}
+
+            <p class="text-muted">
+                {{ activity.description|nl2br }}
+            </p>
+
+            {% if is_granted('ROLE_SPORT_ADMIN') %}
+                <br/><br/>
+
+                {% if  inscriptions|length > 0 %}
+
+                    <h3>{{ inscriptions|length }} inscrits à cette activité</h3>
+
+                    <table class='table table-bordered table-hover'>
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Email</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for inscription in inscriptions %}
+                            <tr>
+                                <td>{{ inscription.person.email }}</td>
+                                <td>{{ inscription.person.name }} {{ inscription.person.surname }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="text-info">Aucune</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+<h1>Confirmation de votre inscription</h1>
+
+<p>
+    Merci {{ person.surname }} de vous êtes inscrit :-)
+</p>
+
+<h3>Voici le récapitulatif de votre inscription</h3>
+
+<table>
+    <tr>
+        <th>Nom activité</th>
+        <th>Ordre de préférence</th>
+    </tr>
+    {% for inscription in inscriptions %}
+        <tr>
+            <td>{{ inscription.activity }}</td>
+            <td>{{ inscription.preferenceNumber }}</td>
+        </tr>
+    {% endfor %}
+</table>

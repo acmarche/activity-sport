@@ -1,0 +1,38 @@
+{% extends '@AcMarcheSport/layout.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h3>Liste des activités</h3>
+        </div>
+        <div class="card-body">
+
+            {% if is_granted('ROLE_SPORT_ADMIN') %}
+                <a href="{{ path('sport_admin_activity_new') }}" class="btn btn-primary" role="button"><i
+                            class="fas fa-plus"></i> Ajouter une activité</a>
+                <br/><br/>
+            {% endif %}
+
+            <table class='table table-bordered table-hover'>
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Nombre maximum</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for activity in activities %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('sport_admin_activity_show', { 'id': activity.id }) }}">
+                                {{ activity.name }}
+                            </a>
+                        </td>
+                        <td>{{ activity.maxParticipant }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

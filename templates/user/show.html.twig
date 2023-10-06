@@ -1,0 +1,35 @@
+{% extends '@AcMarcheSport/layout.html.twig' %}
+
+{% block body %}
+
+<div class="card">
+    <div class="card-header">
+        <h3>{{ utilisateur }}</h3>
+    </div>
+    <div class="card-body">
+
+    {% include '@AcMarcheSport/user/_actions.html.twig' %}
+
+    <br />
+    <table class="table table-bordered table-hover">
+        <tbody>
+        <tr>
+            <th>Nom prénom</th>
+            <td>
+                {{ utilisateur.name }} {{ utilisateur.surname }}
+            </td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>
+                {{ utilisateur.email }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+
+    {% include '@AcMarcheSport/user/_delete.html.twig' %}
+
+{% endblock %}

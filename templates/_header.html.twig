@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm border-bottom">
+    <div class="container">
+        <a class="navbar-brand" href="{{ path('sport_home') }}">
+            <i class="fas fa-store icon-rose"></i>
+            <span class="ms-2 fs-4 navbar-text">Sport</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% block menu %}
+                {% include '@AcMarcheSport/_menu.html.twig' %}
+            {% endblock %}
+        </div>
+    </div>
+</nav>

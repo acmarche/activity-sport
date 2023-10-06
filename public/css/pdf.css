@@ -1,0 +1,39 @@
+
+.rouge {
+    color: #a94442;
+}
+
+.page-breaker {
+    display: block;
+    page-break-after: always;
+}
+
+.gras {
+    font-weight: bold;
+}
+
+.row {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: flex;
+    -webkit-box-pack: start; /* wkhtmltopdf uses this one */
+    justify-content: space-around;
+}
+
+.row > div {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.row > div:last-child {
+    margin-right: 0;
+}
+
+.breadcrumb {
+    display: -webkit-box; /* wkhtmltopdf uses this one */
+    display: flex;
+}
+
+table th {
+    text-align: left;
+}

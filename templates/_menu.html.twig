@@ -1,0 +1,34 @@
+{% set action = app.request.attributes.get("_route") %}
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li>
+        <a href="{{ path('sport_inscription_new') }}" class="nav-link px-2 link-dark"><i class="fa fa-plus"></i>
+            Je m'inscris</a>
+    </li>
+    <li>
+        <a href="{{ path('sport_admin_activity') }}" class="nav-link px-2 link-dark"><i
+                    class="fa fa-list"></i> Les activités</a>
+    </li>
+    {% if is_granted('ROLE_SPORT_ADMIN') %}
+        <li>
+            <a href="{{ path('sport_admin_person') }}" class="nav-link px-2 link-dark"><i
+                        class="fa fa-list"></i> Participants</a>
+        </li>
+        <li>
+            <a href="{{ path('sport_user') }}" class="nav-link px-2 link-dark"><i
+                        class="fa fa-list"></i> Users</a>
+        </li>
+    {% endif %}
+</ul>
+{{ render(url('sport_search_form')) }}
+<ul class="navbar-nav mb-2 mb-lg-0">
+    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+        <li class="nav-item">
+            <a href="{{ path('app_login') }}" class="nav-link"><i class="fas fa-sign-in-alt"></i>
+                Se connecter</a>
+        </li>
+    {% else %}
+        <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link"><i class="fas fa-sign-out-alt"></i>
+                Déconnexion</a>
+        </li>
+    {% endif %}
+</ul>

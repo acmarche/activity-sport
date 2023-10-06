@@ -1,0 +1,39 @@
+{% extends '@AcMarcheSport/layout.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h3>Liste des participants</h3>
+        </div>
+        <div class="card-body">
+            <a href="{{ path('sport_inscription_new') }}" class="btn btn-primary" role="button"><i
+                        class="fas fa-plus"></i> Ajouter un participant</a>
+            <br/><br/>
+
+            <table class='table table-bordered table-hover'>
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Inscription</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for person in persons %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('sport_admin_person_show', { 'id': person.id }) }}">
+                                {{ person.name }}
+                            </a>
+                        </td>
+                        <td>{{ person.email }}</td>
+                        <td>
+                            {{ person.inscriptions|length }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

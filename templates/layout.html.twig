@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr" class="h-100">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Sport{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('bundles/acmarchesport/favicon.ico') }}"/>
+    {% block stylesheets %}{% endblock %}
+
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
+
+</head>
+<body class="d-flex flex-column h-100">
+{% set action = app.request.attributes.get("_route") %}
+{% include '@AcMarcheSport/_header.html.twig' %}
+
+<main role="main" {% block main_class %}class="container pt-3"{% endblock %}>
+
+    {% include '@AcMarcheSport/_flash_messages.html.twig' %}
+
+    {% block notifications %}
+
+    {% endblock %}
+
+    {% block body %}
+
+    {% endblock %}
+</main>
+
+{% block footer %}
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container d-flex justify-content-center">
+            <div class="text-muted">
+                <a href="{{ path('sport_home') }}">Contactez-nous</a> - Marche.Be
+            </div>
+        </div>
+    </footer>
+{% endblock %}
+{% block scripts %}{% endblock %}
+</body>
+</html>

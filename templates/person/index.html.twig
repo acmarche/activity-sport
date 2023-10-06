@@ -22,7 +22,7 @@
                 {% for person in persons %}
                     <tr>
                         <td>
-                            <a href="{{ path('sport_admin_person_show', { 'id': person.id }) }}">
+                            <a href="{{ path('sport_admin_person_show', { 'uuid': person.uuid }) }}">
                                 {{ person.name }}
                             </a>
                         </td>

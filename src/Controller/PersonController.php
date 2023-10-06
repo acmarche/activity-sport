@@ -37,7 +37,7 @@ class PersonController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}', name: 'sport_admin_person_show', methods: ['GET'])]
+    #[Route(path: '/{uuid}', name: 'sport_admin_person_show', methods: ['GET'])]
     public function show(Person $person): Response
     {
         $inscriptions = $this->inscriptionRepository->findByPerson($person);
@@ -51,7 +51,7 @@ class PersonController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}/edit', name: 'sport_admin_person_edit', methods: ['GET', 'POST'])]
+    #[Route(path: '/{uuid}/edit', name: 'sport_admin_person_edit', methods: ['GET', 'POST'])]
     public function edit(Person $person, Request $request): Response
     {
         $editForm = $this->createForm(PersonType::class, $person);
@@ -60,7 +60,7 @@ class PersonController extends AbstractController
 
             $this->personRepository->flush();
 
-            return $this->redirectToRoute('sport_admin_person_show', ['id' => $person->getId()]);
+            return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->getUuid()]);
         }
 
         return $this->render(
@@ -72,19 +72,16 @@ class PersonController extends AbstractController
         );
     }
 
-    #[Route(path: '/{id}', name: 'sport_admin_person_delete', methods: ['POST'])]
+    #[Route(path: '/{uuid}', name: 'sport_admin_person_delete', methods: ['POST'])]
     public function delete(Request $request, Person $person): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$person->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$person->getUuid(), $request->request->get('_token'))) {
             $this->personRepository->remove($person);
             $this->personRepository->flush();
 
-            $this->addFlash('success', 'La catégorie a bien été supprimée');
-
-            return $this->redirectToRoute('sport_admin_person_show', ['id' => $person->getId()]);
-
+            $this->addFlash('success', 'Le participant a bien été supprimé');
         }
 
-        return $this->redirectToRoute('sport_admin_person');
+        return $this->redirectToRoute('sport_home');
     }
 }

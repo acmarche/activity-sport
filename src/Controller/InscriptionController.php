@@ -37,11 +37,12 @@ class InscriptionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             if (!$this->personRepository->findOneByEmail($person->email)) {
+                $person->setUuid($person->generateUuid());
                 $this->personRepository->persist($person);
                 $this->personRepository->flush();
             }
 
-            return $this->redirectToRoute('sport_inscription_selection', ['id' => $person->getId()]);
+            return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->getUuid()]);
         }
 
         return $this->render(
@@ -52,7 +53,7 @@ class InscriptionController extends AbstractController
         );
     }
 
-    #[Route(path: '/selection/{id}', name: 'sport_inscription_selection')]
+    #[Route(path: '/selection/{uuid}', name: 'sport_inscription_selection')]
     public function selection(Request $request, Person $person): Response
     {
         $activities = $this->activityRepository->findAllOrdered();
@@ -75,10 +76,10 @@ class InscriptionController extends AbstractController
             } catch (\Exception|TransportExceptionInterface  $exception) {
                 $this->addFlash('danger', $exception->getMessage());
 
-                return $this->redirectToRoute('sport_inscription_selection', ['id' => $person->getId()]);
+                return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->getUuid()]);
             }
 
-            return $this->redirectToRoute('sport_home');
+            return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->getUuid()]);
         }
 
         return $this->render(

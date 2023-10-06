@@ -6,23 +6,10 @@
             <h3>{{ person }}</h3>
         </div>
         <div class="card-body">
-
+            {% include '@AcMarcheSport/person/_actions.html.twig' %}
+            <br/>
             <p>{{ person.email }}</p>
-
-            {% if is_granted('ROLE_SPORT_ADMIN') %}
-                <ul class="list-group mt-3">
-                    <li class="list-group-item">
-                        <a href="{{ path('sport_inscription_selection', {'id': person.id}) }}" class="btn btn-primary" role="button">
-                           <i class="fas fa-plus"></i> Inscrire</a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="{{ path('sport_admin_person_edit', { 'id': person.id }) }}" class="btn btn-primary"
-                           role="button"><i class="far fa-edit"></i> Editer</a>
-                    </li>
-                </ul>
-            {% endif %}
-
-            <br/><br/>
+            <br/>
             <h3 class="text-success">Inscriptions</h3>
             <table class="table table-bordered">
                 <tr>

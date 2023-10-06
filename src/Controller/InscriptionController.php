@@ -57,6 +57,8 @@ class InscriptionController extends AbstractController
     {
         $activities = $this->activityRepository->findAllOrdered();
 
+        $inscriptionDto = $this->handlerInscription->init($person);
+
         $form = $this->createForm(InscriptionType::class);
         $form->handleRequest($request);
 
@@ -84,6 +86,7 @@ class InscriptionController extends AbstractController
             [
                 'form' => $form->createView(),
                 'person' => $person,
+                'inscriptionDto' => $inscriptionDto,
                 'activities' => $activities,
             ]
         );

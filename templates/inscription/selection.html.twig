@@ -18,16 +18,25 @@
             <div class="row">
                 <div class="col-7">
                     {% for activity in activities %}
-                        <div class="mb-3">
-                            <label for="inscription_x" class="form-label required">
-                                <h5 class="text-success">{{ activity.name }}</h5>
-                            </label>
-                            <input type="number"
-                                   name="inscription[{{ activity.id }}]"
-                                   inputmode="integer"
-                                   max="4"
-                                   min="0"
-                                   class="form-control">
+                        {% set preferenceNumber = '' %}
+                        {% if inscriptionDto.selections[activity.id] is defined %}
+                            {% set  preferenceNumber = inscriptionDto.selections[activity.id].preferenceNumber %}
+                        {% endif %}
+                        <div class="row mb-2">
+                            <div class="col-6">
+                                <label for="inscription_x" class="form-label required">
+                                    <p class="text-success">{{ activity.name }}</p>
+                                </label>
+                            </div>
+                            <div class="col-6">
+                                <input type="number"
+                                       value="{{ preferenceNumber }}"
+                                       name="inscription[{{ activity.id }}]"
+                                       inputmode="integer"
+                                       max="4"
+                                       min="0"
+                                       class="form-control">
+                            </div>
                         </div>
                     {% endfor %}
                 </div>

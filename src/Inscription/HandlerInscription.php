@@ -50,6 +50,19 @@ class HandlerInscription
         return $number > 0 && $number < 5;
     }
 
+    public function init(Person $person): InscriptionDto
+    {
+        $inscriptionDto = new InscriptionDto($person);
+        $inscriptions = $this->inscriptionRepository->findByPerson($person);
+        $choices = [];
+        foreach ($inscriptions as $inscription) {
+            $choices[$inscription->activity->id] = $inscription;
+        }
+        $inscriptionDto->selections = $choices;
+
+        return $inscriptionDto;
+    }
+
     private function checkNumber1234(array $choices): bool
     {
         $choicesOk = [1, 2, 3, 4];

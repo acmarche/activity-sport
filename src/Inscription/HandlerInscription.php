@@ -23,7 +23,6 @@ class HandlerInscription
         unset($selections['_token']);
         $choices = [];
 
-        dump($selections);
         foreach ($selections as $activityId => $number) {
             if ((int)$number > 0) {
                 if (!$this->checkNumber((int)$number)) {

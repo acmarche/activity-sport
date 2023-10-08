@@ -9,6 +9,7 @@ use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
+#[ORM\Table(name: 'inscription')]
 #[ORM\UniqueConstraint(columns: ['person_id', 'activity_id'])]
 #[UniqueEntity(fields: ['person', 'activity'], message: 'Déjà inscrit à cette activité')]
 class Inscription implements TimestampableInterface

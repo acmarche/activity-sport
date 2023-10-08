@@ -6,6 +6,7 @@ use AcMarche\Sport\Repository\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PersonRepository::class)]
+#[ORM\Table(name: 'person')]
 class Person
 {
     use UuidTrait;

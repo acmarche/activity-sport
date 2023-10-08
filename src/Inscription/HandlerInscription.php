@@ -88,6 +88,7 @@ class HandlerInscription
      */
     public function treatment(Person $person, array $selections): array
     {
+        //todo remove old inscriptions
         $inscriptions = [];
         foreach ($selections as $activityId => $number) {
             $activity = $this->activityRepository->find($activityId);

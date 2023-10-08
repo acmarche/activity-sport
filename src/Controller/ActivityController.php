@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/admin/activity')]
 class ActivityController extends AbstractController
@@ -35,6 +36,7 @@ class ActivityController extends AbstractController
     }
 
     #[Route(path: '/new', name: 'sport_admin_activity_new')]
+    #[IsGranted('ROLE_SPORT_ADMIN')]
     public function new(Request $request): Response
     {
         $activity = new Activity();
@@ -73,6 +75,7 @@ class ActivityController extends AbstractController
     }
 
     #[Route(path: '/{id}/edit', name: 'sport_admin_activity_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_SPORT_ADMIN')]
     public function edit(Activity $activity, Request $request): Response
     {
         $editForm = $this->createForm(ActivityType::class, $activity);

@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(path: '/admin/person')]
 class PersonController extends AbstractController
@@ -22,6 +23,7 @@ class PersonController extends AbstractController
     }
 
     #[Route(path: '/', name: 'sport_admin_person', methods: ['GET'])]
+    #[IsGranted('ROLE_SPORT_ADMIN')]
     public function index(Request $request): Response
     {
         $persons = $this->personRepository->findAllOrdered();
@@ -52,12 +54,14 @@ class PersonController extends AbstractController
     }
 
     #[Route(path: '/{uuid}/edit', name: 'sport_admin_person_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_SPORT_ADMIN')]
     public function edit(Person $person, Request $request): Response
     {
         $editForm = $this->createForm(PersonType::class, $person);
         $editForm->handleRequest($request);
         if ($editForm->isSubmitted() && $editForm->isValid()) {
 
+            $this->addFlash('success', 'Participant modifié');
             $this->personRepository->flush();
 
             return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->getUuid()]);
@@ -73,6 +77,7 @@ class PersonController extends AbstractController
     }
 
     #[Route(path: '/{uuid}', name: 'sport_admin_person_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_SPORT_ADMIN')]
     public function delete(Request $request, Person $person): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$person->getUuid(), $request->request->get('_token'))) {

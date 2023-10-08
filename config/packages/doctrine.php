@@ -1,22 +1,21 @@
 <?php
 
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Config\DoctrineConfig;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\Env;
 
-return static function (ContainerConfigurator $containerConfigurator): void {
-    $containerConfigurator->extension(
-        'doctrine',
-        [
-            'orm' => [
-                'mappings' => [
-                    'AcMarche\Sport' => [
-                        'is_bundle' => false,
-                        'type' => 'attribute',
-                        'dir' => '%kernel.project_dir%/src/AcMarche/Sport/src/Entity',
-                        'prefix' => 'AcMarche\Sport',
-                        'alias' => 'AcMarche\Sport',
-                    ],
-                ],
-            ],
-        ]
-    );
+return static function (DoctrineConfig $doctrine): void {
+    $doctrine->dbal()
+        ->connection('sport')
+        ->url(env('DATABASE_SPORT_URL')->resolve())
+        ->charset('utf8mb4');
+
+    $emMda = $doctrine->orm()->entityManager('sport');
+    $emMda->connection('sport');
+    $emMda->mapping('AcMarcheSport')
+        ->isBundle(false)
+        ->type('attribute')
+        ->dir('%kernel.project_dir%/src/AcMarche/Sport/src/Entity')
+        ->prefix('AcMarche\Sport')
+        ->alias('AcMarcheSport');
+
 };

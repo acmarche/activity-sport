@@ -87,8 +87,8 @@ class HandlerInscription
      */
     public function treatment(Person $person, array $selections): array
     {
-        //todo remove old inscriptions
         $inscriptions = [];
+        $this->removeOldInscription($person, $selections);
         foreach ($selections as $activityId => $number) {
             $activity = $this->activityRepository->find($activityId);
             if (!$inscription = $this->inscriptionRepository->findOneByPersonAndActivity($person, $activity)) {
@@ -101,5 +101,25 @@ class HandlerInscription
         $this->inscriptionRepository->flush();
 
         return $inscriptions;
+    }
+
+    private function removeOldInscription(Person $person, array $selections)
+    {
+        $inscriptions = $this->inscriptionRepository->findByPerson($person);
+        $currentActivities = $newActivities = [];
+        foreach ($inscriptions as $inscription) {
+            $currentActivities[$inscription->getId()] = $inscription->activity->getId();
+        }
+
+        foreach ($selections as $activityId => $number) {
+            $newActivities[] = $activityId;
+        }
+
+        $spEnMoins = array_diff($currentActivities, $newActivities);
+
+        foreach ($spEnMoins as $idInscription => $activityId) {
+            $inscription = $this->inscriptionRepository->find($idInscription);
+            $this->inscriptionRepository->remove($inscription);
+        }
     }
 }

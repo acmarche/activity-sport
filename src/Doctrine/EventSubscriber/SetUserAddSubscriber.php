@@ -8,7 +8,7 @@ use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-#[AsDoctrineListener(event: Events::prePersist)]
+//#[AsDoctrineListener(event: Events::prePersist)]
 final class SetUserAddSubscriber
 {
     public function __construct(private readonly Security $security, private readonly PropertyUtil $propertyUtil)

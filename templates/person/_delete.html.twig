@@ -1,0 +1,22 @@
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Supprimer un participant</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Etes vous sûr de vouloir <strong>supprimer {{ person }}</strong> ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler
+                </button>
+                <form method="post" action="{{ path('sport_admin_person_delete', {'uuid': person.uuid}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ person.uuid) }}">
+                    <button type="submit" class="btn btn-danger">Supprimer le participant</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,9 @@
             <a href="{{ path('sport_admin_person_edit',{'uuid':person.uuid}) }}" class="btn btn-primary" role='button'>
                 <i class="fas fa-edit"></i> Modifier
             </a>
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <i class="fas fa-trash"></i> Supprimer
+            </button>
         </div>
     </div>
 {% endif %}

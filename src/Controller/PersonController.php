@@ -81,6 +81,10 @@ class PersonController extends AbstractController
     public function delete(Request $request, Person $person): RedirectResponse
     {
         if ($this->isCsrfTokenValid('delete'.$person->getUuid(), $request->request->get('_token'))) {
+
+            foreach ($this->inscriptionRepository->findByPerson($person) as $inscription) {
+                $this->inscriptionRepository->remove($inscription);
+            }
             $this->personRepository->remove($person);
             $this->personRepository->flush();
 

@@ -36,7 +36,8 @@ class InscriptionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if (!$this->personRepository->findOneByEmail($person->email)) {
+            $person = $this->personRepository->findOneByEmail($person->email);
+            if (!$person) {
                 $person->setUuid($person->generateUuid());
                 $this->personRepository->persist($person);
                 $this->personRepository->flush();

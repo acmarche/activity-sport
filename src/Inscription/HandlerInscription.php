@@ -95,7 +95,7 @@ class HandlerInscription
                 $inscription = new Inscription($person, $activity);
                 $this->inscriptionRepository->persist($inscription);
             }
-            $inscription->preferenceNumber = $number;
+            $inscription->preference_number = $number;
             $inscriptions[] = $inscription;
         }
         $this->inscriptionRepository->flush();

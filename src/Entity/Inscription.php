@@ -22,7 +22,7 @@ class Inscription implements TimestampableInterface
     public ?int $id = null;
 
     #[ORM\Column(type: 'smallint')]
-    public int $preferenceNumber;
+    public int $preference_number;
 
     #[ORM\ManyToOne(targetEntity: Person::class)]
     public Person $person;
@@ -39,6 +39,11 @@ class Inscription implements TimestampableInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPreferenceNumber(): ?int
+    {
+        return $this->preference_number;
     }
 
 }

@@ -22,16 +22,27 @@ class Activity
     public ?string $description = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
-    public ?int $maxParticipant = null;
+    public ?int $max_participant = null;
 
     public function __toString(): string
     {
-        return $this->name;
+        return $this->getName();
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function getMaxParticipant(): ?int
+    {
+        return $this->max_participant;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
 
 }

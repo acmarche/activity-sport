@@ -35,14 +35,12 @@ class InscriptionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $person = $this->personRepository->findOneByEmail($person->email);
-            if (!$person) {
-                $person = new Person();
+            if (!$this->personRepository->findOneByEmail($person->email)) {
                 $person->setUuid($person->generateUuid());
                 $this->personRepository->persist($person);
-                $this->personRepository->flush();
             }
+
+            $this->personRepository->flush();
 
             return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->getUuid()]);
         }

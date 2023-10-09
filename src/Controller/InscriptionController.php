@@ -39,6 +39,9 @@ class InscriptionController extends AbstractController
                 $person->setUuid($person->generateUuid());
                 $this->personRepository->persist($person);
             }
+            else {
+                $person = $this->personRepository->findOneByEmail($person->email);
+            }
 
             $this->personRepository->flush();
 

@@ -1,0 +1,15 @@
+{% if is_granted('ROLE_SPORT_ADMIN') %}
+    <div class="row gy-2 gx-1 align-items-center d-print-none mb-3">
+        <div class="col-auto">
+            <!--  <a href="{{ path('sport_inscription_distribution',{'id':activity.id}) }}" class="btn btn-primary"
+               role='button'>
+                <i class="fas fa-plus"></i> Répartition des inscriptions
+            </a>-->
+            <a href="{{ path('sport_admin_activity_edit',{'id':activity.id}) }}" class="btn btn-primary"
+               role='button'>
+                <i class="fas fa-edit"></i> Modifier
+            </a>
+
+        </div>
+    </div>
+{% endif %}

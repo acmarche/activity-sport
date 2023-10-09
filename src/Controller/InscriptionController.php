@@ -2,6 +2,7 @@
 
 namespace AcMarche\Sport\Controller;
 
+use AcMarche\Sport\Entity\Activity;
 use AcMarche\Sport\Entity\Person;
 use AcMarche\Sport\Form\InscriptionType;
 use AcMarche\Sport\Form\PersonType;
@@ -94,5 +95,11 @@ class InscriptionController extends AbstractController
                 'activities' => $activities,
             ]
         );
+    }
+
+    #[Route(path: '/distribution/{id}', name: 'sport_inscription_distribution')]
+    public function distribution(Request $request, Activity $activity): Response
+    {
+
     }
 }

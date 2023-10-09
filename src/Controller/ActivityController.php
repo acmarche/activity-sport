@@ -64,12 +64,16 @@ class ActivityController extends AbstractController
     public function show(Activity $activity): Response
     {
         $inscriptions = $this->inscriptionRepository->findByActivity($activity);
+        $inscriptionsValidated = $this->inscriptionRepository->findValidatedByActivity($activity);
+        $inscriptionsNotValidated = $this->inscriptionRepository->findNotValidatedByActivity($activity);
 
         return $this->render(
             '@AcMarcheSport/activity/show.html.twig',
             [
                 'activity' => $activity,
                 'inscriptions' => $inscriptions,
+                'inscriptionsValidated' => $inscriptionsValidated,
+                'inscriptionsNotValidated' => $inscriptionsNotValidated,
             ]
         );
     }

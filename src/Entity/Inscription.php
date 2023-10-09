@@ -24,6 +24,9 @@ class Inscription implements TimestampableInterface
     #[ORM\Column(type: 'smallint')]
     public int $preference_number;
 
+    #[ORM\Column()]
+    public bool $validated;
+
     #[ORM\ManyToOne(targetEntity: Person::class)]
     public Person $person;
 
@@ -34,6 +37,7 @@ class Inscription implements TimestampableInterface
     {
         $this->person = $person;
         $this->activity = $activity;
+        $this->validated = false;
     }
 
     public function getId(): ?int

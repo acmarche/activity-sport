@@ -7,42 +7,64 @@
         </div>
         <div class="card-body">
 
-            {% if is_granted('ROLE_SPORT_ADMIN') %}
-                <a href="{{ path('sport_admin_activity_edit', { 'id': activity.id }) }}" class="btn btn-primary"
-                   role="button"><i class="far fa-edit"></i> Editer</a>
-            {% endif %}
+            {% include '@AcMarcheSport/activity/_actions.html.twig' %}
 
-            <p class="text-muted">
+            <p class="text-muted mt-3">
                 {{ activity.description|nl2br }}
             </p>
 
+            {% include '@AcMarcheSport/activity/_list_inscriptions.html.twig' %}
+
             {% if is_granted('ROLE_SPORT_ADMIN') %}
-                <br/><br/>
+            <br/><br/>
 
-                {% if  inscriptions|length > 0 %}
+            <h3>Répartitions des inscrits</h3>
 
-                    <h3>{{ inscriptions|length }} inscrits à cette activité</h3>
+            <form name="form1" id="form1" onsubmit="return false;">
+                <div class="row mb-5">
+                    <div class="col-5">
+                        <h4 class="text-success">Participants inscrits</h4>
+                        <select multiple style="width: 400px;height: 400px;" class="form-select" name="leftProcess">
+                            {% for inscription in inscriptionsNotValidated %}
+                                <option>{{ inscription.person.name }} {{ inscription.person.surname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
 
-                    <table class='table table-bordered table-hover'>
-                        <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Email</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for inscription in inscriptions %}
-                            <tr>
-                                <td>{{ inscription.person.email }}</td>
-                                <td>{{ inscription.person.name }} {{ inscription.person.surname }}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                {% else %}
-                    <p class="text-info">Aucune</p>
-                {% endif %}
-            {% endif %}
+                    <div class="col-1 mt-5">
+                        <button class="btn btn-primary" onclick="moveRight('leftProcess','rightProcess');">>></button>
+                        <br/><br/>
+                        <button class="btn btn-primary" onclick="moveRight('rightProcess','leftProcess')"><<</button>
+                    </div>
+
+                    <div class="col-5">
+                        <h4 class="text-success">Participants sélectionnés</h4>
+                        <select multiple style="width: 400px;height: 400px;" class="form-select" name="rightProcess">
+                            {% for inscriptionValidated in inscriptionsValidated %}
+                                <option>{{ inscriptionValidated.person.name }} {{ inscriptionValidated.person.surname }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                </div>
+            </form>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        function moveRight(leftValue, rightValue) {
+            //alert("Elft value is t : "+leftValue);
+            var leftSelect = document.forms["form1"].elements[leftValue];
+            var rightSelect = document.forms["form1"].elements[rightValue];
+            //alert("test : " + document.forms["form1"].elements[myLeftId].options[selItem].value);
+            if (leftSelect.selectedIndex == -1) {
+                window.alert("You must first select an item on the left side.")
+            } else {
+                var option = leftSelect.options[leftSelect.selectedIndex];
+                rightSelect.appendChild(option);
+            }
+        }
+    </script>
 {% endblock %}

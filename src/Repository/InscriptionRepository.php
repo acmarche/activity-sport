@@ -46,6 +46,19 @@ class InscriptionRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    /**
+     * @param Person $person
+     * @return Inscription[]
+     */
+    public function findByPersonAndValidated(Person $person): array
+    {
+        return $this->createQbl()
+            ->andWhere('inscription.person = :person')
+            ->setParameter('person', $person)
+            ->andWhere('inscription.validated = 1')
+            ->getQuery()
+            ->getResult();
+    }
 
     /**
      * @param Activity $activity
@@ -55,9 +68,9 @@ class InscriptionRepository extends ServiceEntityRepository
     {
         return $this->createQbl()
             ->andWhere('inscription.activity = :activity')
+            ->addOrderBy('inscription.preference_number', 'ASC')
             ->setParameter('activity', $activity)
             ->addOrderBy('inscription.createdAt', 'ASC')
-            ->addOrderBy('inscription.preference_number', 'ASC')
             ->getQuery()
             ->getResult();
     }

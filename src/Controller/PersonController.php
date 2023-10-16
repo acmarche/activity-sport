@@ -43,12 +43,14 @@ class PersonController extends AbstractController
     public function show(Person $person): Response
     {
         $inscriptions = $this->inscriptionRepository->findByPerson($person);
+        $inscriptionsValidated = $this->inscriptionRepository->findByPersonAndValidated($person);
 
         return $this->render(
             '@AcMarcheSport/person/show.html.twig',
             [
                 'person' => $person,
                 'inscriptions' => $inscriptions,
+                'inscriptionsValidated' => $inscriptionsValidated,
             ]
         );
     }

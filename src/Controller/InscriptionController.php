@@ -9,6 +9,7 @@ use AcMarche\Sport\Form\PersonType;
 use AcMarche\Sport\Inscription\HandlerInscription;
 use AcMarche\Sport\Mailer\MailerSport;
 use AcMarche\Sport\Repository\ActivityRepository;
+use AcMarche\Sport\Repository\InscriptionRepository;
 use AcMarche\Sport\Repository\PersonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +22,7 @@ class InscriptionController extends AbstractController
 {
     public function __construct(
         private readonly ActivityRepository $activityRepository,
+        private readonly InscriptionRepository $inscriptionRepository,
         private readonly PersonRepository $personRepository,
         private readonly HandlerInscription $handlerInscription,
         private readonly MailerSport $mailerSport
@@ -39,8 +41,7 @@ class InscriptionController extends AbstractController
             if (!$this->personRepository->findOneByEmail($person->email)) {
                 $person->setUuid($person->generateUuid());
                 $this->personRepository->persist($person);
-            }
-            else {
+            } else {
                 $person = $this->personRepository->findOneByEmail($person->email);
             }
 
@@ -100,6 +101,35 @@ class InscriptionController extends AbstractController
     #[Route(path: '/distribution/{id}', name: 'sport_inscription_distribution')]
     public function distribution(Request $request, Activity $activity): Response
     {
+        $all = $request->toArray();
+        $result = [];
+        $inscriptionId = $all['inscriptionId'];
+        $action = $all['action'];
+        if (!$inscriptionId) {
+            return $this->json([
+                'error' => 'Le nom est obligatoire',
+            ]);
+        }
+
+        $inscription = $this->inscriptionRepository->find($inscriptionId);
+        if ($inscription) {
+            if ($action === 'add') {
+                $inscription->validated = true;
+            } else {
+                $inscription->validated = false;
+            }
+            $this->inscriptionRepository->flush();
+        }
+
+        $inscriptionsValidated = $this->inscriptionRepository->findValidatedByActivity($activity);
+
+        $message = $this->render(
+            '@AcMarcheSport/inscription/_result_ajax.html.twig',
+            ['inscriptionsValidated' => $inscriptionsValidated]
+        );
+        $result['message'] = $message;
+
+        return $this->json($result);
 
     }
 }

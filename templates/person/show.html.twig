@@ -10,7 +10,22 @@
             <br/>
             <p>{{ person.email }}</p>
             <br/>
-            <h3 class="text-success">Inscriptions</h3>
+            <h3 class="text-success">Activités validées</h3>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Activité</th>
+                </tr>
+                {% for inscription in inscriptionsValidated %}
+                    <tr>
+                        <td>{{ inscription.activity.name }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>Aucune</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <h3 class="text-success">Activités choisies</h3>
             <table class="table table-bordered">
                 <tr>
                     <th>Activité</th>

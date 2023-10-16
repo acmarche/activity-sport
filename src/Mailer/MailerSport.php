@@ -33,4 +33,24 @@ class MailerSport
         $this->mailer->send($email);
 
     }
+
+    /**
+     * @param Person $person
+     * @param Inscription[] $data
+     * @return void
+     * @throws TransportExceptionInterface
+     */
+    public function sendAll(Person $person, string $subject, string $message, array $data)
+    {
+        $email = (new TemplatedEmail())
+            ->from('sante@marche.be')
+            ->to($person->email)
+            ->cc('sante@marche.be')
+            ->subject($subject)
+            ->htmlTemplate('@AcMarcheSport/emails/resume.html.twig')
+            ->context(['person' => $person, 'inscriptions' => $data, 'message'=>$message]);
+
+        $this->mailer->send($email);
+
+    }
 }

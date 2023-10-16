@@ -26,6 +26,9 @@ class ActivityController extends AbstractController
     public function index(Request $request): Response
     {
         $activities = $this->activityRepository->findAllOrdered();
+        foreach ($activities as $activity) {
+           $activity->inscriptionsValidated = $this->inscriptionRepository->findValidatedByActivity($activity);
+        }
 
         return $this->render(
             '@AcMarcheSport/activity/index.html.twig',

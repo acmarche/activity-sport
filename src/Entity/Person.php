@@ -29,6 +29,10 @@ class Person
      * @var Inscription[]
      */
     public array $inscriptions = [];
+    /**
+     * @var Inscription[]
+     */
+    public array $inscriptionsValidated = [];
 
     public function __toString(): string
     {

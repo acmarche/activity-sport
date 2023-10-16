@@ -27,7 +27,7 @@
                         <select multiple style="width: 400px;height: 400px;" class="form-select" name="leftProcess">
                             {% for inscription in inscriptionsNotValidated %}
                                 <option value="{{ inscription.id }}">
-                                    {{ inscription.person.name }} {{ inscription.person.surname }}
+                                    {{ inscription.person.name|upper }} {{ inscription.person.surname }}
                                 </option>
                             {% endfor %}
                         </select>
@@ -44,7 +44,7 @@
                         <select multiple style="width: 400px;height: 400px;" class="form-select" name="rightProcess">
                             {% for inscriptionValidated in inscriptionsValidated %}
                                 <option value="{{ inscriptionValidated.id }}">
-                                    {{ inscriptionValidated.person.name }} {{ inscriptionValidated.person.surname }}
+                                    {{ inscriptionValidated.person.name|upper }} {{ inscriptionValidated.person.surname }}
                                 </option>
                             {% endfor %}
                         </select>

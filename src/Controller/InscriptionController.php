@@ -3,6 +3,7 @@
 namespace AcMarche\Sport\Controller;
 
 use AcMarche\Sport\Entity\Activity;
+use AcMarche\Sport\Entity\Inscription;
 use AcMarche\Sport\Entity\Person;
 use AcMarche\Sport\Form\InscriptionType;
 use AcMarche\Sport\Form\PersonType;
@@ -12,6 +13,7 @@ use AcMarche\Sport\Repository\ActivityRepository;
 use AcMarche\Sport\Repository\InscriptionRepository;
 use AcMarche\Sport\Repository\PersonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -98,8 +100,19 @@ class InscriptionController extends AbstractController
         );
     }
 
+    #[Route(path: '/distribution/{id}', name: 'sport_inscription_disabled')]
+    public function disabled(Inscription $inscription): Response
+    {
+        $inscription->validated = false;
+        $this->inscriptionRepository->flush();
+
+        $this->addFlash('success','La personne a bien été désinscrite');
+
+        return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $inscription->person->getUuid()]);
+    }
+
     #[Route(path: '/distribution/{id}', name: 'sport_inscription_distribution')]
-    public function distribution(Request $request, Activity $activity): Response
+    public function distribution(Request $request, Activity $activity): JsonResponse
     {
         $all = $request->toArray();
         $result = [];
@@ -112,16 +125,10 @@ class InscriptionController extends AbstractController
         }
 
         $inscription = $this->inscriptionRepository->find($inscriptionId);
+        $inscriptionsValidated = [];
         if ($inscription) {
-            if ($action === 'add') {
-                $inscription->validated = true;
-            } else {
-                $inscription->validated = false;
-            }
-            $this->inscriptionRepository->flush();
+            $inscriptionsValidated = $this->handlerInscription->treatmentValidate($activity, $inscription, $action);
         }
-
-        $inscriptionsValidated = $this->inscriptionRepository->findValidatedByActivity($activity);
 
         $message = $this->render(
             '@AcMarcheSport/inscription/_result_ajax.html.twig',

@@ -2,6 +2,7 @@
 
 namespace AcMarche\Sport\Inscription;
 
+use AcMarche\Sport\Entity\Activity;
 use AcMarche\Sport\Entity\Inscription;
 use AcMarche\Sport\Entity\Person;
 use AcMarche\Sport\Repository\ActivityRepository;
@@ -121,5 +122,17 @@ class HandlerInscription
             $inscription = $this->inscriptionRepository->find($idInscription);
             $this->inscriptionRepository->remove($inscription);
         }
+    }
+
+    public function treatmentValidate(Activity $activity, Inscription $inscription, string $action): array
+    {
+        if ($action === 'add') {
+            $inscription->validated = true;
+        } else {
+            $inscription->validated = false;
+        }
+        $this->inscriptionRepository->flush();
+
+        return $this->inscriptionRepository->findValidatedByActivity($activity);
     }
 }

@@ -24,6 +24,8 @@ class Activity
     #[ORM\Column(type: Types::SMALLINT)]
     public ?int $max_participant = null;
 
+    public array $inscriptionsValidated = [];
+
     public function __toString(): string
     {
         return $this->getName();

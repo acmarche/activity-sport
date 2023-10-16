@@ -15,7 +15,8 @@
                 <tr>
                     <th>Nom</th>
                     <th>Email</th>
-                    <th>Inscription</th>
+                    <th>Choix</th>
+                    <th>Activités validées</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,12 +24,15 @@
                     <tr>
                         <td>
                             <a href="{{ path('sport_admin_person_show', { 'uuid': person.uuid }) }}">
-                                {{ person.surname }}  {{ person.name }}
+                                {{ person.name|upper }} {{ person.surname }}
                             </a>
                         </td>
                         <td>{{ person.email }}</td>
                         <td>
                             {{ person.inscriptions|length }}
+                        </td>
+                        <td>
+                            {{ person.inscriptionsValidated|length }}
                         </td>
                     </tr>
                 {% endfor %}

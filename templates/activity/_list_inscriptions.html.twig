@@ -17,7 +17,11 @@
             <tbody>
             {% for inscription in inscriptions %}
                 <tr>
-                    <td>{{ inscription.person.name }} {{ inscription.person.surname }}</td>
+                    <td>
+                        <a href="{{ path('sport_admin_person_show', {'uuid': inscription.person.uuid}) }}">
+                            {{ inscription.person.name|upper }} {{ inscription.person.surname }}
+                        </a>
+                    </td>
                     <td>{{ inscription.person.email }}</td>
                     <td>{{ inscription.createdAt|format_datetime('full', 'short') }}</td>
                     <td>{{ inscription.preferenceNumber }}</td>

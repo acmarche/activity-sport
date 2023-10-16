@@ -17,6 +17,7 @@
                 <thead>
                 <tr>
                     <th>Nom</th>
+                    <th>Inscriptions validées</th>
                     <th>Nombre maximum</th>
                 </tr>
                 </thead>
@@ -28,6 +29,7 @@
                                 {{ activity.name }}
                             </a>
                         </td>
+                        <td>{{ activity.inscriptionsValidated|length }}</td>
                         <td>{{ activity.maxParticipant }}</td>
                     </tr>
                 {% endfor %}

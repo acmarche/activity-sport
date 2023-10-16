@@ -1,0 +1,33 @@
+{% extends '@AcMarcheSport/layout.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        <div class="card-header">
+            <h3>Contactez les participants</h3>
+        </div>
+        <div class="card-body">
+
+            <div class="alert alert-info mb-3">
+                Le formulaire permet d'envoyer un mail à chaque participant.<br />
+                Dans le mail sera indiqué quelles activités ont été validées pour celui-ci
+            </div>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+
+            <button class="btn btn-primary mr-1 mb-2" type="submit"><i class="far fa-save" aria-hidden="true"></i>
+                Sauvegarder
+            </button>
+
+            {{ form_end(form) }}
+        </div>
+        <div class="card-footer">
+            <a href="{{ path('sport_admin_person') }}" class="mt-4">
+                <i class="fas fa-long-arrow-alt-left"></i> Annuler
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+

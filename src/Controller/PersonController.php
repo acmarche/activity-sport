@@ -29,6 +29,7 @@ class PersonController extends AbstractController
         $persons = $this->personRepository->findAllOrdered();
         foreach ($persons as $person) {
             $person->inscriptions = $this->inscriptionRepository->findByPerson($person);
+            $person->inscriptionsValidated = $this->inscriptionRepository->findByPersonAndValidated($person);
         }
 
         return $this->render(

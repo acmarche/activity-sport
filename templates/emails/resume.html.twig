@@ -1,0 +1,19 @@
+<h1>Confirmation du choix de vos activités</h1>
+
+<p>
+    {{ message|nl2br }}
+</p>
+
+<br/>
+<h3>Voici les activités qui ont été selectionnées pour vous</h3>
+
+<table>
+    <tr>
+        <th>Nom activité</th>
+    </tr>
+    {% for inscription in inscriptions %}
+        <tr>
+            <td>{{ inscription.activity }}</td>
+        </tr>
+    {% endfor %}
+</table>

@@ -10,6 +10,8 @@
             {% if is_granted('ROLE_SPORT_ADMIN') %}
                 <a href="{{ path('sport_admin_activity_new') }}" class="btn btn-primary" role="button"><i
                             class="fas fa-plus"></i> Ajouter une activité</a>
+                <a href="{{ path('sport_admin_activity_export') }}" class="btn btn-primary" role="button"><i
+                            class="fas fa-plus"></i> Exporter la liste</a>
                 <br/><br/>
             {% endif %}
 
@@ -30,7 +32,7 @@
                             </a>
                         </td>
                         <td>{{ activity.inscriptionsValidated|length }}</td>
-                        <td>{{ activity.maxParticipant }}</td>
+                        <td>{{ activity.max_participant }}</td>
                     </tr>
                 {% endfor %}
                 </tbody>

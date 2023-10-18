@@ -15,7 +15,7 @@ class ActivityType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('maxParticipant', IntegerType::class, [
+            ->add('max_participant', IntegerType::class, [
 
             ])
             ->add('description', TextareaType::class, [

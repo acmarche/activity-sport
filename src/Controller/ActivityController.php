@@ -118,4 +118,20 @@ class ActivityController extends AbstractController
 
         return $this->redirectToRoute('sport_admin_activity');
     }
+
+    #[Route(path: '/export/html', name: 'sport_admin_activity_export', methods: ['GET'])]
+    public function export(Request $request): Response
+    {
+        $activities = $this->activityRepository->findAllOrdered();
+        foreach ($activities as $activity) {
+           $activity->inscriptionsValidated = $this->inscriptionRepository->findValidatedByActivity($activity);
+        }
+
+        return $this->render(
+            '@AcMarcheSport/activity/export.html.twig',
+            [
+                'activities' => $activities,
+            ]
+        );
+    }
 }

@@ -1,0 +1,43 @@
+{% extends '@AcMarcheSport/layout.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+        .page-breaker {
+            display: block;
+            page-break-after: always;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <div class="card">
+        <div class="card-header d-print-none">
+            <h3>Résumé des activités</h3>
+        </div>
+        <div class="card-body">
+            {% for activity in activities %}
+                <h3 class="text-success">{{ activity }}</h3>
+                <table class='table table-bordered table-hover'>
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for inscription in activity.inscriptionsValidated %}
+                        <tr>
+                            <td>
+                                {{ inscription.person.name|upper }}
+                            </td>
+                            <td>
+                                {{ inscription.person.surname }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="page-breaker"></div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

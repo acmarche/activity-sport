@@ -40,7 +40,8 @@
                     </div>
 
                     <div class="col-5">
-                        <h4 class="text-success" id="result_ajax">{{ inscriptionsValidated|length }} participants sélectionnés</h4>
+                        <h4 class="text-success" id="result_ajax">{{ inscriptionsValidated|length }} participants
+                            sélectionnés</h4>
                         <select multiple style="width: 400px;height: 400px;" class="form-select" name="rightProcess">
                             {% for inscriptionValidated in inscriptionsValidated %}
                                 <option value="{{ inscriptionValidated.id }}">
@@ -84,14 +85,12 @@
                     'Content-Type': 'application/json'
                 }
             }).then((response) => {
-                  console.log(response)
                 return response.json()
             }).then((res) => {
-                console.log(res.message.content)
+              //  console.log(res.message.content)
                 //   if (res.status === 200) {
                 var groupe_selector = document.querySelector('#result_ajax');
                 groupe_selector.innerHTML = res.message.content;
-                console.log("Post successfully created!")
                 //    }
             }).catch((error) => {
                 console.log(error)

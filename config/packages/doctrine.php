@@ -7,7 +7,7 @@ return static function (DoctrineConfig $doctrine): void {
     $doctrine->dbal()
         ->connection('sport')
         ->url(env('DATABASE_SPORT_URL')->resolve())
-        ->charset('utf8mb4');
+        ->charset('utf8mb4_unicode_ci');
 
     $emMda = $doctrine->orm()->entityManager('sport');
     $emMda->connection('sport');

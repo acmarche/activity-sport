@@ -48,7 +48,7 @@ class InscriptionController extends AbstractController
 
             $this->personRepository->flush();
 
-            return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->getUuid()]);
+            return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->uuid]);
         }
 
         return $this->render(
@@ -82,10 +82,10 @@ class InscriptionController extends AbstractController
             } catch (\Exception|TransportExceptionInterface  $exception) {
                 $this->addFlash('danger', $exception->getMessage());
 
-                return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->getUuid()]);
+                return $this->redirectToRoute('sport_inscription_selection', ['uuid' => $person->uuid]);
             }
 
-            return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->getUuid()]);
+            return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->uuid]);
         }
 
         return $this->render(
@@ -107,7 +107,7 @@ class InscriptionController extends AbstractController
 
         $this->addFlash('success', 'La personne a bien été désinscrite');
 
-        return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $inscription->person->getUuid()]);
+        return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $inscription->person->uuid]);
     }
 
     #[Route(path: '/distribution/{id}', name: 'sport_inscription_distribution')]

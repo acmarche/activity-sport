@@ -67,7 +67,7 @@ class PersonController extends AbstractController
             $this->addFlash('success', 'Participant modifié');
             $this->personRepository->flush();
 
-            return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->getUuid()]);
+            return $this->redirectToRoute('sport_admin_person_show', ['uuid' => $person->uuid]);
         }
 
         return $this->render(
@@ -83,7 +83,7 @@ class PersonController extends AbstractController
     #[IsGranted('ROLE_SPORT_ADMIN')]
     public function delete(Request $request, Person $person): RedirectResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$person->getUuid(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$person->uuid, $request->request->get('_token'))) {
 
             foreach ($this->inscriptionRepository->findByPerson($person) as $inscription) {
                 $this->inscriptionRepository->remove($inscription);

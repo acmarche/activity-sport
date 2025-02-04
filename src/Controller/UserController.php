@@ -59,7 +59,7 @@ class UserController extends AbstractController
             '@AcMarcheSport/user/new.html.twig',
             [
                 'utilisateur' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
@@ -91,7 +91,7 @@ class UserController extends AbstractController
             '@AcMarcheSport/user/edit.html.twig',
             [
                 'utilisateur' => $user,
-                'form' => $editForm->createView(),
+                'form' => $editForm,
             ]
         );
     }
@@ -115,7 +115,7 @@ class UserController extends AbstractController
             '@AcMarcheSport/user/password.html.twig',
             [
                 'user' => $user,
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }

@@ -58,7 +58,7 @@ class ActivityController extends AbstractController
         return $this->render(
             '@AcMarcheSport/activity/new.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
@@ -98,7 +98,7 @@ class ActivityController extends AbstractController
             '@AcMarcheSport/activity/edit.html.twig',
             [
                 'activity' => $activity,
-                'form' => $editForm->createView(),
+                'form' => $editForm,
             ]
         );
     }

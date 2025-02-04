@@ -54,7 +54,7 @@ class InscriptionController extends AbstractController
         return $this->render(
             '@AcMarcheSport/inscription/new.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }
@@ -91,7 +91,7 @@ class InscriptionController extends AbstractController
         return $this->render(
             '@AcMarcheSport/inscription/selection.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
                 'person' => $person,
                 'inscriptionDto' => $inscriptionDto,
                 'activities' => $activities,

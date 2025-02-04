@@ -74,7 +74,7 @@ class PersonController extends AbstractController
             '@AcMarcheSport/person/edit.html.twig',
             [
                 'person' => $person,
-                'form' => $editForm->createView(),
+                'form' => $editForm,
             ]
         );
     }

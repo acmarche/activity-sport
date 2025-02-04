@@ -48,7 +48,7 @@ class DefaultController extends AbstractController
         return $this->render(
             '@AcMarcheSport/default/_search_form.html.twig',
             [
-                'form' => $form->createView(),
+                'form' => $form,
             ]
         );
     }

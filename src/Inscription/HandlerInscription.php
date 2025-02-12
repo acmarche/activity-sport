@@ -122,6 +122,7 @@ class HandlerInscription
             $inscription = $this->inscriptionRepository->find($idInscription);
             $this->inscriptionRepository->remove($inscription);
         }
+         $this->inscriptionRepository->flush();
     }
 
     public function treatmentValidate(Activity $activity, Inscription $inscription, string $action): array

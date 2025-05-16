@@ -67,7 +67,7 @@ class DefaultController extends AbstractController
                 try {
                     $this->mailerSport->sendAll($person, $data['subject'], $data['message'], $inscriptionsValidated);
                 } catch (TransportExceptionInterface $e) {
-                    $this->addFlash('danger', 'Erreur d\'envoie pour '.$person->email.' '.$e->getMessage());
+                    $this->addFlash('danger', 'Erreur d\'envoi pour '.$person->email.' '.$e->getMessage());
                 }
             }
             $this->addFlash('success', 'Messages envoyés');

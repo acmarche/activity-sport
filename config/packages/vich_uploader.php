@@ -7,23 +7,16 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'vich_uploader',
         [
             'mappings' => [
-                'bottin_fiche_image' => [
-                    'uri_prefix' => '/bottin/fiches',
-                    'upload_destination' => '%kernel.project_dir%/public/bottin/fiches',
-                    'directory_namer' => ['service' => DirectoryNamer::class],
-                    'namer' => 'vich_uploader.namer_uniqid',
-                    'inject_on_load' => false,
-                ],
                 'bottin_category_logo' => [
                     'uri_prefix' => '/bottin/categories',
                     'upload_destination' => '%kernel.project_dir%/public/bottin/categories',
-                    'namer' => 'vich_uploader.namer_uniqid',
+                    'namer'=> Vich\UploaderBundle\Naming\SmartUniqueNamer::class,
                     'inject_on_load' => false,
                 ],
                 'bottin_fiche_document' => [
                     'uri_prefix' => '/bottin/documents',
                     'upload_destination' => '%kernel.project_dir%/public/bottin/documents',
-                    'namer' => 'vich_uploader.namer_uniqid',
+                    'namer'=> Vich\UploaderBundle\Naming\SmartUniqueNamer::class,
                     'inject_on_load' => false,
                 ],
             ],
